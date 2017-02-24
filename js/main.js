@@ -87,8 +87,10 @@ $(document).ready(function () {
                 people_total_price = people_total_price+products[prod].unprice;
             });
 
-            $('#'+person.name).text( Math.round(people_total_price*100)/100 );
+            $('#'+person.name).text( roundPrice( people_total_price ) );
         });
+
+        reloadTotalPrice();
     }
 
     function removeProductFromPerson(product_id, person_id) {
@@ -138,6 +140,19 @@ $(document).ready(function () {
             recountEachPeople();
         }
     });
+    
+    function reloadTotalPrice() {
+        var total_price = 0;
+        $.each( people, function (index, person) {
+            total_price += parseFloat( $('#'+person.name).text() );
+        });
+
+        $('#total-price').text(total_price);
+    }
+
+    function roundPrice(price) {
+        return (Math.ceil(price*20 - 0.5)/20).toFixed(2);
+    }
 
 });
 

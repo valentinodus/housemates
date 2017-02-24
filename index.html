@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Dajeee</title>
+    <title>House Mates</title>
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script src="js/main.js"></script>
@@ -29,6 +29,8 @@
     <div class="row">
 
         <div class="col-md-12">
+            <h1>House Mates</h1>
+            <div style="height: 50px;"></div>
             <form class="form-inline" id="insert-price">
                 <label class="sr-only" for="product-name">Name</label>
                 <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="product-name" name="product-name" placeholder="Formajo">
@@ -43,8 +45,9 @@
         </div>
 
 
-        <div class="col-md-12">
 
+        <div class="col-md-12">
+            <div style="height: 20px;"></div>
             <table class="table">
                 <thead  class="thead-inverse">
                     <tr id="table-header">
@@ -61,6 +64,9 @@
                     <tr id="table-footer">
                         <th>Product</th>
                         <th>Price</th>
+                    </tr>
+                    <tr>
+                        <th>Total: <span id="total-price">0</span></th>
                     </tr>
                 </tfoot>
             </table>
