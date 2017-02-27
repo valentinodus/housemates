@@ -43,7 +43,7 @@ $(document).ready(function () {
     $( "#insert-price" ).submit(function( event ) {
         event.preventDefault();
 
-        var random_id = getRandomInt(0,100);
+        var random_id = getProgressiveNumber();
 
         var prod = {
             id: random_id,
@@ -129,6 +129,12 @@ $(document).ready(function () {
 
     function getRandomInt(min, max) {
         return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    var prog_number = 0;
+    function getProgressiveNumber() {
+        prog_number++;
+        return prog_number;
     }
 
     $(document).on('change', '#table-body input', function() {
