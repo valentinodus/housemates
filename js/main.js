@@ -8,13 +8,12 @@ $(document).ready(function () {
 
     // Change Peoples Name
     var names = [
-        'Mary',
-        'Ilaria',
-        'Edoardo',
-        'Thais',
-        'AliceRu',
-        'AliceRe',
-        'Mariana'
+        'Marco',
+        'Andrea',
+        'Luca',
+        'Vlady',
+        'Vale',
+        'Fede'
     ];
 
     var people = [];
@@ -52,7 +51,7 @@ $(document).ready(function () {
     });
 
     $("#load-table").on("click","td button",function(){
-        tempLoadChoice = $(this).text();
+        tempLoadChoice = $(this).data('file-name');
         tempObj = $(this);
         $("#choose:before").css({
             content: $(this).text()
