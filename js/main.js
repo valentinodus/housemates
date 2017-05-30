@@ -1,22 +1,24 @@
 /**
  * Created by valentinodus on 14/02/2017.
  */
+var tempLoadChoice;
+var tempObj;
 
 $(document).ready(function () {
 
-
     // Change Peoples Name
     var names = [
-        'Marco',
-        'Andrea',
-        'Luca',
-        'Vlady',
-        'Vale',
-        'Fede'
+        'Mary',
+        'Ilaria',
+        'Edoardo',
+        'Thais',
+        'AliceRu',
+        'AliceRe',
+        'Mariana'
     ];
 
     var people = [];
-    $.each(names, function (index, item) {
+    $.each(names, function (index, item) { 
         var tmp_people_obj = {
             name: item,
             products: []
@@ -30,6 +32,36 @@ $(document).ready(function () {
     var content_header = '';
     $.each(people, function (index, item) {
         content_header += '<th>' + item.name + '</th>';
+    });
+
+    $("#save").click(function(){
+        saveTable();
+    });
+
+    $("#load").click(function(){
+        loadFile("readlist","");
+    });
+
+    $("#exit").click(function(){
+        $("#load-table tbody").html("");
+        $("#load-wrapper").removeClass("visible");
+    });
+
+    $("#load-table").on("click","td button",function(){
+        tempLoadChoice = $(this).text();
+        tempObj = $(this);
+        $("#choose:before").css({
+            content: $(this).text()
+        });
+        $("#choose").addClass("visible");        
+    });
+
+    $("#choose button").click(function(){
+        if($(this).attr("id")=="btnLoad"){
+            loadFile("loadF",tempLoadChoice);
+        }else if($(this).attr("id")=="btnDelete"){
+            loadFile("delete",tempLoadChoice);
+        }
     });
 
     $('#table-header').append(content_header);
@@ -62,20 +94,122 @@ $(document).ready(function () {
         // Clear inputs
         $(this).find("input").val("");
 
-        add_tr( prod );
+        add_tr( prod ,0);
     });
 
-    function add_tr( product ) {
-        var tr_content = '';
-        tr_content += '<tr id="'+product.id+'" class="prod-people-entity">';
-        tr_content += ' <th scope="row">'+product.name+'</th>';
-        tr_content += ' <th scope="row">'+product.price+'</th>';
-        $.each( people, function (index, person) {
-            tr_content += '<td><input type="checkbox" checked data-product-id="'+product.id+'" data-person="'+index+'"></td>'
-        });
-        tr_content += '</tr>';
+    function loadFile(type,name){
 
-        $('#table-body').append(tr_content);
+        $("#load-wrapper").addClass("visible");
+        if(type=="readlist"){
+            $.ajax({
+              url: "load.php",
+              data: {type: type,filename: name},
+              type: "post",
+              dataType: "html"
+            })
+            .done(function( data ) {
+                $('#load-table tbody').append(data);
+            });
+        }else if(type=="loadF"){
+            $("#choose").removeClass("visible");
+            $("#load-table tbody").html("");
+            prog_number = -1;
+            $.ajax({
+                url: "load.php",
+                data: {type: type,filename: name},
+                type: "post",
+                dataType: "JSON",
+                success: function(json){
+                    products = json.prodz;
+                    people = json.peoplez;
+                    afterLoad(name);
+                }
+            });
+        }else if(type=="delete"){
+            $("#choose").removeClass("visible");
+            $.ajax({
+                url: "load.php",
+                data: {type: type,filename: name},
+                type: "post",
+                dataType: "text",
+                success: function(data){
+                    if(data=="y"){
+                        alert("File eliminato");
+                        tempObj.parent().parent().remove();
+                    }else{
+                        alert("Si è verificato un errore");
+                    }
+                }
+            });
+        }
+    }
+
+    function afterLoad(name){
+
+        $("#main-table tbody").html("");
+        $.ajax({
+            url: "load.php",
+            data: {type:"html",filename: name},
+            type: "post",
+            dataType: "text",
+            success: function(data){
+                $("#main-table tbody").html(data);
+            }
+        });
+        
+        $.each(products, function (index, obj){
+            prog_number++;
+            add_tr( obj , 1);
+        });
+
+        // Clear inputs
+        $(this).find("input").val("");
+        $("#load-wrapper").removeClass("visible");
+        $("#main-table").find('input[type="checkbox"]').prop('checked', false);;
+        
+    }
+
+    function saveTable(){
+
+        var myJSON = JSON.stringify({
+            prodz: products,
+            peoplez: people
+        });
+        var nome = $("#saveName").val();
+
+        $.ajax({
+          url: "save.php",
+          data: {
+            products: myJSON,
+            nome: nome,
+            checkboxes: $("#main-table tbody").html()
+          },
+          type: "post",
+          dataType: "text"
+        })
+        .done(function( data ) {
+            if(data=="y"){
+                alert("Salvataggio effettuato");
+                $("#saveName").val("");
+            }else if(data=="n1"){
+                alert("ERRORE: la tabella è vuota");
+            }
+        });
+    }
+
+    function add_tr( product, type ) {
+        if(type==0){
+            var tr_content = '';
+            tr_content += '<tr id="'+product.id+'" class="prod-people-entity">';
+            tr_content += ' <th scope="row">'+product.name+'</th>';
+            tr_content += ' <th scope="row">'+product.price+'</th>';
+            $.each( people, function (index, person) {
+                tr_content += '<td><input type="checkbox" checked data-product-id="'+product.id+'" data-person="'+index+'"></td>'
+            });
+            tr_content += '</tr>';
+
+            $('#table-body').append(tr_content);
+        }
         recountEachPeople();
     }
 
@@ -131,7 +265,7 @@ $(document).ready(function () {
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
-    var prog_number = 0;
+    var prog_number = -1;
     function getProgressiveNumber() {
         prog_number++;
         return prog_number;
@@ -139,12 +273,15 @@ $(document).ready(function () {
 
     $(document).on('change', '#table-body input', function() {
         if( $(this).is(':checked') ) {
+            $(this).attr( "checked" ,"checked" );
             addProductFromPerson($(this).data('product-id'), $(this).data('person') );
             recountEachPeople();
         }else{
+            $(this).removeAttr( "checked" );
             removeProductFromPerson($(this).data('product-id'), $(this).data('person') );
             recountEachPeople();
         }
+
     });
     
     function reloadTotalPrice() {
