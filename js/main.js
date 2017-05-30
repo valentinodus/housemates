@@ -196,6 +196,10 @@ $(document).ready(function () {
         .done(function( data ) {
             if(data=="y"){
                 $("#saveName").val("");
+                $('#success-save').removeClass('hidden-xs-up');
+                setTimeout(function () {
+                    $('#success-save').addClass('hidden-xs-up');
+                }, 1500);
             }else if(data=="n1"){
                 alert("ERRORE: la tabella è vuota");
             }
