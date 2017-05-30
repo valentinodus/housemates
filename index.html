@@ -17,9 +17,139 @@
         }
 
         tbody tr:nth-child(even){
-            background-color: rgba(143, 202, 254, 0.14);
+            background-color: rgba(143, 202, 254, 0.14); 
         }
 
+        .table td{
+            text-align: center;
+        }
+
+        h1{
+            margin-top: 50px;
+            display: inline-block;
+        }
+
+        .visible{
+            display: block !important;
+        }
+
+        #load {
+            display: block;
+            margin: 20px 0;
+        }
+
+        #load-table{
+            background: #fff;
+            max-width: 1140px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        #load-table tr:nth-child(even){
+            background-color: initial;
+        }
+
+        #load-table th,
+        #load-table td{
+            text-align: center;
+        }
+
+        #save{
+            display: inline-block;
+            margin: 0 auto;
+        }
+
+        #saveName{
+            display: inline-block;
+            margin-bottom: 10px;
+            width: initial;
+        }
+
+        #load-wrapper {
+            z-index: 100;
+            left: 0;
+            top: 0;
+            display: none;
+            height: 100vh;
+            position: fixed;
+            width: 100vw;
+            background: rgba(0,0,0,0.5);
+            padding: 20px;
+        }
+
+        #choose:before{
+            content: "";
+        }
+
+        span#exit {
+            z-index: 100;
+            position: relative;
+            display: block;
+            cursor: pointer;
+            text-align: right;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            width: 100%;
+            max-width: 1140px;
+            margin: 20px auto;
+        }
+
+        div#choose {
+            position: absolute;
+            top: 30vh;
+            left: 0;
+            width: 100%;
+            background: #000;
+            display: none;
+        }
+
+        button#btnLoad {
+            background-color: #3ec53e;
+        }
+
+        button#btnDelete {
+            background-color: #d41d1d;
+        }
+
+        #choose button.btn {
+            display: block;
+            margin: 20px auto;
+            color: #fff;
+        }
+
+
+        @media (max-width: 991px){
+            table{
+                table-layout: initial;
+                display: block;
+                overflow: auto;
+            }
+
+            #load-table{
+                max-height: 70vh;
+                overflow: hidden;
+            }
+
+            #load-table tbody{
+                max-height: 70vh;
+                overflow-y: auto;   
+            }
+
+            #load-table *{
+                width: 100%;
+                display: block;
+            }
+
+            input[type="checkbox"] {
+                width: 20px;
+                height: 20px;
+            }
+
+            #table-footer th {
+                text-align: center; 
+            }
+        }
 
     </style>
 </head>
@@ -30,6 +160,7 @@
 
         <div class="col-md-12">
             <h1>House Mates</h1>
+            <button id="load" class="btn btn-primary">CARICA</button>
             <div style="height: 50px;"></div>
             <form class="form-inline" id="insert-price">
                 <label class="sr-only" for="product-name">Name</label>
@@ -48,7 +179,7 @@
 
         <div class="col-md-12">
             <div style="height: 20px;"></div>
-            <table class="table">
+            <table class="table" id="main-table">
                 <thead  class="thead-inverse">
                     <tr id="table-header">
                         <th>Product</th>
@@ -70,7 +201,33 @@
                     </tr>
                 </tfoot>
             </table>
+        </div>
 
+        <div id="load-wrapper" class="col-xs-12"> 
+            <div id="choose">
+                <button id="btnLoad" class="btn">LOAD</button>
+                <button id="btnDelete" class="btn">DELETE</button>
+            </div>
+            <span id="exit">x</span>
+            <table id="load-table" class="table">
+                <thead class="thead-inverse">
+                    <tr>
+                        <th>Nome</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-md-12">
+            Nome <input type="text" name="saveName" id="saveName" class="form-control" />
+            <button id="save" type="submit" class="btn btn-primary">SALVA</button>
+        </div>
+
+        <div id="aad">
+            
         </div>
     </div>
 </div>
