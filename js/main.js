@@ -42,7 +42,8 @@ $(document).ready(function () {
     });
 
     $("div#load-wrapper").click(function(){
-        $("#exit").trigger("click");      
+        $("#load-table tbody").html("");
+        $("#load-wrapper").removeClass("visible");
     });
 
     $("#exit").click(function(){
