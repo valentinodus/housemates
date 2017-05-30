@@ -304,7 +304,7 @@ $(document).ready(function () {
             total_price += parseFloat( $('#'+person.name).text() );
         });
 
-        $('#total-price').text(total_price);
+        $('#total-price').text(total_price.toFixed(2));
     }
 
     function roundPrice(price) {
