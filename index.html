@@ -128,6 +128,46 @@
             color: #fff;
         }
 
+        table#main-table {
+            height: 100%;
+        }
+
+        tr.prod-people-entity {
+            height: inherit;
+        }
+        .prod-people-entity td {
+            height: inherit;
+            padding: 0;
+            position: relative;
+        }
+
+        .table [type=checkbox] {
+            -moz-appearance: none;
+            -webkit-appearance: none;
+            background-color: #ffd4d4;
+            height: 100%;
+            width: 100%;
+            outline: none;
+         }
+
+        .table [type=checkbox]:checked {
+            background-color: rgba(12, 189, 12, 0.31);
+        }
+
+        .table [type=checkbox]:checked::before {
+            content: '';
+            width: 11px;
+            height: 7px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            border: 3px solid #292b2c;
+            border-top: none;
+            border-right: none;
+            background: transparent;
+            transform: rotate(-45deg) scale(2) translateY(-50%);
+        }
+
 
         @media (max-width: 991px){
             table{
@@ -161,6 +201,8 @@
             }
         }
 
+
+
     </style>
 </head>
 <body>
@@ -187,8 +229,7 @@
 
 
 
-        <div class="col-md-12">
-            <div style="height: 20px;"></div>
+        <div class="col-md-12" style="margin-top: 20px; margin-bottom: 20px;">
             <table class="table" id="main-table">
                 <thead  class="thead-inverse">
                     <tr id="table-header">
