@@ -7,7 +7,7 @@
 	/* sanity check */
 	if (json_decode($json) != null){
 
-		$nome = $_POST['nome']."_".date("Ymd_His");
+		$nome = str_replace('_',' ', $_POST['nome']) . "_" . date("Ymd_His");
 
 		$file = fopen("history/".$nome.".json",'w+');
 		fwrite($file, $json);
