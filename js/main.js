@@ -47,11 +47,13 @@ $(document).ready(function () {
         }
         $("#load-table tbody").html("");
         $("#load-wrapper").removeClass("visible");
+        $('body').removeClass('noscroll');
     });
 
     $("#exit").click(function(){
         $("#load-table tbody").html("");
         $("#load-wrapper").removeClass("visible");
+        $('body').removeClass('noscroll');
     });
 
     $("#load-table").on("click","td button",function(){
@@ -106,8 +108,10 @@ $(document).ready(function () {
 
     function loadFile(type,name){
 
-        $("#load-wrapper").addClass("visible");
         if(type=="readlist"){
+            $("#load-wrapper").addClass("visible");
+            $('body').addClass('noscroll');
+
             $.ajax({
               url: "load.php",
               data: {type: type,filename: name},
@@ -171,6 +175,7 @@ $(document).ready(function () {
         // Clear inputs
         $(this).find("input").val("");
         $("#load-wrapper").removeClass("visible");
+        $('body').removeClass('noscroll');
         $("#main-table").find('input[type="checkbox"]').prop('checked', false);;
         
     }
