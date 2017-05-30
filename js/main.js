@@ -141,7 +141,6 @@ $(document).ready(function () {
                 dataType: "text",
                 success: function(data){
                     if(data=="y"){
-                        alert("File eliminato");
                         tempObj.parent().parent().remove();
                     }else{
                         alert("Si è verificato un errore");
@@ -196,7 +195,6 @@ $(document).ready(function () {
         })
         .done(function( data ) {
             if(data=="y"){
-                alert("Salvataggio effettuato");
                 $("#saveName").val("");
             }else if(data=="n1"){
                 alert("ERRORE: la tabella è vuota");
