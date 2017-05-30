@@ -41,7 +41,10 @@ $(document).ready(function () {
         loadFile("readlist","");
     });
 
-    $("div#load-wrapper").click(function(){
+    $("div#load-wrapper").click(function(e){
+        if(e.target!==this){
+            return;
+        }
         $("#load-table tbody").html("");
         $("#load-wrapper").removeClass("visible");
     });
