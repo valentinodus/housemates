@@ -18,7 +18,7 @@ $(document).ready(function () {
     ];
 
     var people = [];
-    $.each(names, function (index, item) { 
+    $.each(names, function (index, item) {
         var tmp_people_obj = {
             name: item,
             products: []
@@ -53,7 +53,7 @@ $(document).ready(function () {
         $("#choose:before").css({
             content: $(this).text()
         });
-        $("#choose").addClass("visible");        
+        $("#choose").addClass("visible");
     });
 
     $("#choose button").click(function(){
@@ -102,14 +102,14 @@ $(document).ready(function () {
         $("#load-wrapper").addClass("visible");
         if(type=="readlist"){
             $.ajax({
-              url: "load.php",
-              data: {type: type,filename: name},
-              type: "post",
-              dataType: "html"
+                url: "load.php",
+                data: {type: type,filename: name},
+                type: "post",
+                dataType: "html"
             })
-            .done(function( data ) {
-                $('#load-table tbody').append(data);
-            });
+                .done(function( data ) {
+                    $('#load-table tbody').append(data);
+                });
         }else if(type=="loadF"){
             $("#choose").removeClass("visible");
             $("#load-table tbody").html("");
@@ -156,7 +156,7 @@ $(document).ready(function () {
                 $("#main-table tbody").html(data);
             }
         });
-        
+
         $.each(products, function (index, obj){
             prog_number++;
             add_tr( obj , 1);
@@ -166,7 +166,7 @@ $(document).ready(function () {
         $(this).find("input").val("");
         $("#load-wrapper").removeClass("visible");
         $("#main-table").find('input[type="checkbox"]').prop('checked', false);;
-        
+
     }
 
     function saveTable(){
@@ -178,23 +178,23 @@ $(document).ready(function () {
         var nome = $("#saveName").val();
 
         $.ajax({
-          url: "save.php",
-          data: {
-            products: myJSON,
-            nome: nome,
-            checkboxes: $("#main-table tbody").html()
-          },
-          type: "post",
-          dataType: "text"
+            url: "save.php",
+            data: {
+                products: myJSON,
+                nome: nome,
+                checkboxes: $("#main-table tbody").html()
+            },
+            type: "post",
+            dataType: "text"
         })
-        .done(function( data ) {
-            if(data=="y"){
-                alert("Salvataggio effettuato");
-                $("#saveName").val("");
-            }else if(data=="n1"){
-                alert("ERRORE: la tabella è vuota");
-            }
-        });
+            .done(function( data ) {
+                if(data=="y"){
+                    alert("Salvataggio effettuato");
+                    $("#saveName").val("");
+                }else if(data=="n1"){
+                    alert("ERRORE: la tabella è vuota");
+                }
+            });
     }
 
     function add_tr( product, type ) {
@@ -235,7 +235,7 @@ $(document).ready(function () {
 
         decrementPeopleCount(product_id);
     }
-    
+
     function decrementPeopleCount(product_id) {
         products[product_id].peoplecount--;
 
@@ -283,7 +283,7 @@ $(document).ready(function () {
         }
 
     });
-    
+
     function reloadTotalPrice() {
         var total_price = 0;
         $.each( people, function (index, person) {
@@ -298,6 +298,4 @@ $(document).ready(function () {
     }
 
 });
-
-
 
