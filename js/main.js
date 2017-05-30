@@ -42,6 +42,10 @@ $(document).ready(function () {
         loadFile("readlist","");
     });
 
+    $("div#load-wrapper").click(function(){
+        $("#exit").trigger("click");      
+    });
+
     $("#exit").click(function(){
         $("#load-table tbody").html("");
         $("#load-wrapper").removeClass("visible");
