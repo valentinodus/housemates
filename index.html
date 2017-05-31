@@ -166,6 +166,11 @@
             transform: rotate(-45deg) scale(2) translateY(-50%);
         }
 
+        #save-section{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
 
         @media (max-width: 991px){
             table{
@@ -198,6 +203,13 @@
             }
         }
 
+        @media (max-width: 575px){
+
+            #save-section{
+                flex-direction: column;
+            }
+
+        }
 
 
     </style>
@@ -269,8 +281,7 @@
             </table>
         </div>
 
-        <div class="col-md-12" style="display: flex;flex-direction: row;align-items: center;">
-            <span style="margin-bottom: 10px;">Nome</span>
+        <div class="col-md-12" id="save-section">Nome</span>
             <input type="text" name="saveName" id="saveName" class="form-control" />
             <button id="save" type="submit" class="btn btn-primary">SALVA</button>
             <div class="alert alert-success hidden-xs-up" id="success-save">
