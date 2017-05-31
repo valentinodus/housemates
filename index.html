@@ -20,7 +20,7 @@
             content: attr(data-value);
         }
 
-        table {
+        table { 
             table-layout: fixed;
         }
 
@@ -70,7 +70,7 @@
 
         #saveName{
             display: inline-block;
-            margin-bottom: 10px;
+            margin: 0 10px 10px 10px;
             width: initial;
         }
 
@@ -270,8 +270,9 @@
             </table>
         </div>
 
-        <div class="col-md-12">
-            Nome <input type="text" name="saveName" id="saveName" class="form-control" />
+        <div class="col-md-12" style="display: flex;flex-direction: row;">
+            <span style="margin-bottom: 10px;">Nome</span>
+            <input type="text" name="saveName" id="saveName" class="form-control" />
             <button id="save" type="submit" class="btn btn-primary">SALVA</button>
             <div class="alert alert-success hidden-xs-up" id="success-save">
                 Saved!
