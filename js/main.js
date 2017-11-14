@@ -9,11 +9,12 @@ $(document).ready(function () {
     // Change Peoples Name
     var names = [
         'Marco',
-        'Andrea',
+        'Kevin',
         'Luca',
         'Vlady',
         'Vale',
-        'Fede'
+        'Fede',
+        'Koala',
     ];
 
     var people = [];
